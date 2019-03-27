@@ -1,5 +1,8 @@
 # aws-serverless-website
-Code for my serverless website facilitated by Amazon Web Services.
+A serverless website using Amazon Web Services.
+
+![image(1)](https://user-images.githubusercontent.com/24194821/55099877-89dc3900-508e-11e9-819b-30d46be2a421.jpg)
+
 
 # Cloud Services Used
 * <strong>AWS S3</strong>: AWS Simple Storage Service is used to store and host the website files.
