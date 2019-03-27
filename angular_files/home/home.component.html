@@ -1,0 +1,26 @@
+<div class="home-container">
+
+  <div class="jumbotron jumbotron-fluid">
+  	<div class="container">
+    	<h3>Welcome to Sheriff Olaoye's Hompage</h3>
+    	<a class="button" href="https://github.com/sheriffolaoye" target="_blank">Go to Github</a>
+  	</div>
+  </div>
+
+  <h3>This website's architecture</h3>
+  <p>
+ 	This is a serverless website put together using some of solutions provided by Amazon Web Services (AWS).
+ 	</p>
+ 	<ul>
+ 		<li><strong>AWS S3</strong>: AWS Simple Storage Service is used to store and host the website files.</li>
+ 		<li><strong>AWS RDS</strong>: A MySQL database is used to store information about currently hosted repositories in my Github account. This is to avoid making request to the Github API everytime a user visits the website.</li>
+ 		<li><strong>AWS Lambda</strong>: Two Lambda functions are used. The first function uses Github API to update the repositories in the database. The second function acts as a rest API, it serves JSON content containing details of my github repositories currently stored in the database.</li>
+ 		<li><strong>AWS ApiGateway</strong>: AWS API Gateway is used as a trigger for the lambda function that serves as the rest API.</li>
+ 		<li><strong>AWS CloudWatch</strong>: A Cloudwatch rule is used as a trigger for the lambda function that updates the database. A cron expression was used to schedule updating the database.</li>
+ 	</ul>
+ 	<p>
+ 	The website utilizes AngularJS for the front-end. Bootstrap components were also used to enhance visuals. View <a href="https://github.com/sheriffolaoye/aws-serverless-webite" target="_blank">source code</a> for the website on Github. This project was inspired by <a href="https://devoncrawford.io" target="_blank">Devon Crawford's</a> website and the A Cloud Guru platform.
+ 	</p>
+  
+  
+</div>

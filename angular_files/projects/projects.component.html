@@ -1,0 +1,15 @@
+<div class="project-container">
+  <div *ngFor="let repo of repos" class="project-card">
+    <div class="project-card-body">
+      <h4 class="project-card-title"><strong>{{repo.Name}}</strong></h4>
+      <p>
+      	{{repo.Description}}
+      	<br>
+        Language: {{repo.Language}}
+        <br>
+        Date Created: {{repo.DateCreated}}
+      </p>
+      <a href="{{repo.HtmlLink}}" target="_blank">View on GitHub</a>
+    </div>
+  </div>
+</div>
