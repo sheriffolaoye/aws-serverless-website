@@ -6,8 +6,13 @@ function getRepositories() {
     HttpRequest.onreadystatechange = function() { 
         if (HttpRequest.readyState == 4 && HttpRequest.status == 200){
             var response = HttpRequest.responseText;
-            sessionStorage.setItem("projects", response)
-            console.log("Data is ready")
+            sessionStorage.setItem("projects", response);
+            var visited = sessionStorage.getItem("visitedIndex");
+
+            if(visited !== "yes"){
+                var repos = JSON.parse(response)
+                showProjects(repos);
+            }
         }
     }
 
@@ -47,9 +52,8 @@ function getProjects(){
     if(repos || visitedIndex === "yes"){
         var repos = JSON.parse(repos)
         showProjects(repos);
+        
     }else{
         getRepositories();
-        var repos = sessionStorage.getItem("projects");
-        showProjects(repos);
     }
 }
