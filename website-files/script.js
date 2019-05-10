@@ -1,22 +1,22 @@
-var HttpClient = function() {
-    this.get = function(aUrl, aCallback) {
-        var HttpRequest = new XMLHttpRequest();
-        HttpRequest.onreadystatechange = function() { 
-            if (HttpRequest.readyState == 4 && HttpRequest.status == 200)
-                aCallback(HttpRequest.responseText);
+// this script preloads the repositiory data
+function getRepositories() {
+    var url = "https://c3pzc9vqi9.execute-api.us-east-1.amazonaws.com/default/restAPI";
+    var HttpRequest = new XMLHttpRequest();
+
+    HttpRequest.onreadystatechange = function() { 
+        if (HttpRequest.readyState == 4 && HttpRequest.status == 200){
+            var response = HttpRequest.responseText;
+            sessionStorage.setItem("projects", response)
+            console.log("Data is ready")
         }
-
-        HttpRequest.open("GET", aUrl, true);   
-        HttpRequest.send(null);
     }
-}
 
-var url = "https://c3pzc9vqi9.execute-api.us-east-1.amazonaws.com/default/restAPI";
-var client = new HttpClient();
+    HttpRequest.open("GET", url, true);   
+    HttpRequest.send();
+};
 
-var repos = client.get(url, function(response) {
-    var repos = JSON.parse(response);
-    var text = "";
+function showProjects(repos){
+    var text = ""
 
     for(i=0; i < repos.length; i++){
         text = text +  `<div class='project-card'>
@@ -37,4 +37,19 @@ var repos = client.get(url, function(response) {
     }
 
     document.getElementById("project-container").innerHTML = text;
-});
+}
+
+// function to show projects
+function getProjects(){
+    var repos = sessionStorage.getItem("projects");
+    var visitedIndex = sessionStorage.getItem("visitedIndex");
+
+    if(repos || visitedIndex === "yes"){
+        var repos = JSON.parse(repos)
+        showProjects(repos);
+    }else{
+        getRepositories();
+        var repos = sessionStorage.getItem("projects");
+        showProjects(repos);
+    }
+}
