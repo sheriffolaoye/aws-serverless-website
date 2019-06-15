@@ -9,8 +9,12 @@ body {
 
 
 /* ----------------- Navigation -----------------*/
-.nav-brand {
-    margin-left: 8%;
+#nav-brand {
+    margin-left: 9%;
+}
+
+#navbar-item {
+    margin-left: 6%;
 }
 
 /* ----------------- Index.html Style -----------------*/
@@ -114,10 +118,6 @@ footer a:hover {
 
 @media screen and (max-width: 500px){
     #nav-brand {
-        margin-left: 6%;
-    }
-
-    #navbar-item {
         margin-left: 6%;
     }
 
