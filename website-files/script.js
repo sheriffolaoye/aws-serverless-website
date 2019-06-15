@@ -27,11 +27,11 @@ function showProjects(repos){
     for(i=0; i < repos.length; i++){
         text = text +  `<div class='project-card'>
                             <div class='project-card-body'>
-                                <h2 class='project-card-title'>
+                                <h4 class='project-card-title'>
                                     <strong>`
                                         + repos[i]["Name"] + 
                                     `</strong>
-                                </h2>
+                                </h4>
                                 <p>`
                                     + repos[i]["Description"] + 
                                     `<br>Language: ` + repos[i]["Language"] +

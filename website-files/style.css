@@ -14,7 +14,7 @@ body {
 }
 
 #navbar-item {
-    margin-left: 6%;
+    margin-left: 8%;
 }
 
 /* ----------------- Index.html Style -----------------*/
@@ -82,10 +82,13 @@ body {
 }
 
 .project-card {
-    width: 100%;
+    height: 210px;
+    width: 48%;
     float: left;
-    margin: 5px auto 5px auto;
-	border: 1px solid black;
+    margin: 5px 0.5%;
+    border: 1px solid black;
+    overflow: auto;
+    overflow-wrap: break-word;
 }
 
 .project-card-body {
@@ -116,9 +119,9 @@ footer a:hover {
 }
 
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 800px){
     #nav-brand {
-        margin-left: 6%;
+        margin-left: 8%;
     }
 
     .welcome {
@@ -141,4 +144,21 @@ footer a:hover {
         padding: 20px;
         text-align: center;
     }
+
+    /* ----------------- Projects.html ----------------*/
+    #project-container {
+        width: 80%;
+        margin: 0px auto;
+        padding: 0;
+    }
+    
+    .project-card {
+        width: 100%;
+        float: left;
+        margin: 5px auto 5px auto;
+        border: 1px solid black;
+    }
+
+    
+    
 }
