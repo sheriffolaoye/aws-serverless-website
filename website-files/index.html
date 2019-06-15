@@ -5,46 +5,55 @@
     <title>Sheriff's Homepage | Home</title>
     <link rel="icon" href="rsz_portrait.jpg">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script>
-        sessionStorage.setItem("projects", "")
-        sessionStorage.setItem("visitedIndex", "yes")
+        sessionStorage.setItem("projects", "");
+        sessionStorage.setItem("visitedIndex", "yes");
     </script>
+
     <script type="text/javascript" src="script.js"></script>
+
     <script>
         getRepositories();
     </script>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a class="brand" href="index.html">Sheriff Olaoye</a>
-            </li>
-            <li class="nav-link">
-                <a class="active" href="index.html">Home</a>
-            </li>
-            <li class="nav-link">
-                <a href="projects.html">Projects</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mb-0 h1" id="nav-brand" href="index.html">Sheriff Olaoye</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active" id="navbar-item">
+                    <a class="nav-link " href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" id="navbar-item">
+                    <a class="nav-link" href="projects.html">Projects</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="home-container">
         <div class="welcome">
-            <a href="portrait.jpg">
-                <img src="portrait.jpg">
-            </a>
+            <img src="portrait.jpg">
+
             <div class="welcome-text">
-                <h2>Welcome to Sheriff Olaoye's Homepage</h2>
+                <h4>Welcome to Sheriff Olaoye's Homepage</h4>
+                
                 <a class="button" href="https://github.com/sheriffolaoye" target="_blank">Go to Github</a>
             </div>
         </div>
 
+        <div style="clear:both"></div>
         <div class="article">
-            <h2>This website's architecture</h2>
+            <h4>This website's architecture</h4>
             <p>
                 This is a website put together using some of solutions provided by Amazon Web Services (AWS).
             </p>
@@ -69,7 +78,7 @@
         </div>
 
         <footer>
-            <h3>Social</h3>
+            <h4>Social</h4>
             <p>
                 <a href="https://www.linkedin.com/in/sheriff-olaoye" target="_blank">LinkedIn</a>     
                     &nbsp; |     &nbsp;
@@ -80,7 +89,11 @@
                 <a href="https://www.youtube.com/channel/UCc8obrkxDLhMuWzANrjgaQA" target="_blank">YouTube</a>
             </p>
         </footer>
-    </div>
+        </div>
+    
+    <script src="jquery-3.2.1.slim.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
 </body>
 
 </html>

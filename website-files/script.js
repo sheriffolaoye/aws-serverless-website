@@ -1,4 +1,4 @@
-// this script preloads the repositiory data
+// function to retrieve repositiory data
 function getRepositories() {
     var url = "https://c3pzc9vqi9.execute-api.us-east-1.amazonaws.com/default/restAPI";
     var HttpRequest = new XMLHttpRequest();
@@ -20,6 +20,7 @@ function getRepositories() {
     HttpRequest.send();
 };
 
+// function to hide loading gif and show projects
 function showProjects(repos){
     var text = ""
 
@@ -41,10 +42,10 @@ function showProjects(repos){
                         </div>`;
     }
 
+    document.getElementById("loading-img").style.display = "none";
     document.getElementById("project-container").innerHTML = text;
 }
 
-// function to show projects
 function getProjects(){
     var repos = sessionStorage.getItem("projects");
     var visitedIndex = sessionStorage.getItem("visitedIndex");
@@ -52,7 +53,6 @@ function getProjects(){
     if(repos || visitedIndex === "yes"){
         var repos = JSON.parse(repos)
         showProjects(repos);
-        
     }else{
         getRepositories();
     }

@@ -5,27 +5,37 @@
     <title>Sheriff's Homepage | Projects</title>
     <link rel="icon" href="rsz_portrait.jpg">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a class="brand" href="index.html">Sheriff Olaoye</a>
-            </li>
-            <li class="nav-link">
-                <a href="index.html">Home</a>
-            </li>
-            <li class="nav-link">
-                <a class="active" href="projects.html">Projects</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mb-0 h1" id="nav-brand" href="index.html">Sheriff Olaoye</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item" id="navbar-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item active" id="navbar-item">
+                    <a class="nav-link" href="projects.html">Projects<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="projects">
+        <div id="loading-img">
+            <img src="loading.gif" height="250px"/>
+        </div>
+
         <div id="project-container">
             <script>
                 getProjects();
@@ -45,6 +55,10 @@
             <a href="https://www.youtube.com/channel/UCc8obrkxDLhMuWzANrjgaQA" target="_blank">YouTube</a>
         </p>
     </footer>
+
+    <script src="jquery-3.2.1.slim.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
 </body>
 
 </html>
