@@ -31,8 +31,8 @@ def main(event,context):
                 "Access-Control-Allow-Origin": "*",},
         "body": json.dumps(repos)}
 
-    print(response)
     return response
 
-if __name__=="__main__":
-	main(None,None)
+# for local testing
+#if __name__=="__main__":
+#	main(None,None)

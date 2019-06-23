@@ -25,5 +25,6 @@ def main(event, context):
             "body": json.dumps(message)}
     return response
 
+# for local testing
 #if __name__=="__main__":
 #    main("","")
