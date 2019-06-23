@@ -15,39 +15,28 @@ class Database(object):
                                           user=self.db_username,
                                           db=self.db_name,
                                           password=self.db_password,
-                                          connect_timeout=20)
+                                          connect_timeout=5)
         try:
             self.cursor = self.connection.cursor()
             self.connected = True
             return True
         except:
-            raise "connection error!"
             return False
 
-    def update(self, id, name, description, url, language, date):
+    def update(self, data):
         if self.connected:
-            query = """INSERT IGNORE INTO RepositoryData (ID, Name, Description, 
-                       HtmlLink, Language, DateCreated) VALUES ({}, '{}', '{}', 
-                       '{}', '{}', STR_TO_DATE('{}', '%Y-%m-%dT%H:%i:%sZ'))
-                    """.format(id, name, description, url, language, date)
+            query = "REPLACE INTO RepositoryData (ID, Name, Description, HtmlLink, Language, DateCreated) VALUES "
+
+            for i in range(len(data)):
+                values = "({}, '{}', '{}', '{}', '{}', STR_TO_DATE('{}', '%Y-%m-%dT%H:%i:%sZ'))"\
+                        .format(data[i]["id"], data[i]["name"], data[i]["description"], 
+                            data[i]["url"], data[i]["language"], data[i]["date"])
+                if i + 1 < len(data):
+                    values += ", "
+                query += values
+
             self.cursor.execute(query)
             self.connection.commit()
-        else:
-            print("Connect to Database first!")
-
-    def getRepos(self):
-        if self.connected:
-            query = """SELECT Name, DateCreated, Description, 
-                       HtmlLink, Language FROM RepositoryData"""
-            repos = []
-            try:
-                self.cursor.execute(query)
-                repos = self.cursor.fetchall()
-            except Exception as e:
-            	repos.append(e)
-            return repos
-        else:
-            print("Connect to Database first!")
 
     def removeDeleted(self, ids):
         if self.connection:
@@ -66,11 +55,7 @@ class Database(object):
                     query = "DELETE FROM RepositoryData WHERE ID = {}".format(i)
                     self.cursor.execute(query)
                     self.connection.commit()
-        else:
-            print("Nothing to close!")
 
     def close(self):
         if self.connection:
             self.connection.close()
-        else:
-            print("Nothing to close!")

@@ -1,6 +1,10 @@
 import json
 import datetime
 from database import Database
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def beautify(repositories):
     selectors = ["Name","DateCreated","Description","HtmlLink","Language"]
@@ -15,9 +19,11 @@ def beautify(repositories):
 
 def main(event,context):
     db = Database()
-    db.connect()
-    repos = db.getRepos()
-    repos = beautify(repos)
+    if db.connect():
+        repos = db.getRepos()
+        repos = beautify(repos)
+    else:
+        logger.info("Cannot connect to database")
 
     response = {
         "statusCode": 200,

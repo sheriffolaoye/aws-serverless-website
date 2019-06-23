@@ -1,13 +1,21 @@
 import json
 from updater import RepoUpdater
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def main(event, context):
+    logger.info("")
     repoUpdater = RepoUpdater()
-    message = "success"
+    message = "Repositories updated successfully!"
 
     # try to update the database
     if not repoUpdater.update():
-        message = "failed to update repositories"
+        # do some logging
+        message = "Failed to update repositories"
+
+    logger.info(message)
 
     # define JSON response
     response = {
@@ -17,5 +25,5 @@ def main(event, context):
             "body": json.dumps(message)}
     return response
 
-if __name__=="__main__":
-    main("","")
+#if __name__=="__main__":
+#    main("","")
