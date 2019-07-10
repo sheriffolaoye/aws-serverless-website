@@ -1,12 +1,12 @@
 import pymysql
-import rds_config
+import os
 
 class Database(object):
     def __init__(self):
-        self.db_username = rds_config.db_username
-        self.db_host = rds_config.db_endpoint
-        self.db_name = rds_config.db_name
-        self.db_password = rds_config.db_password
+        self.db_username = os.environ["DB_USERNAME"]
+        self.db_host = os.environ["DB_ENDPOINT"]
+        self.db_name = os.environ["DB_NAME"]
+        self.db_password = os.environ["DB_PASSWORD"]
         self.connected = False
         self.connection = None
 
