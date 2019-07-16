@@ -1,24 +1,8 @@
-// function to retrieve repositiory data
-function getRepositories() {
-    var url = "https://c3pzc9vqi9.execute-api.us-east-1.amazonaws.com/default/restAPI";
-    var HttpRequest = new XMLHttpRequest();
+var url = "https://c3pzc9vqi9.execute-api.us-east-1.amazonaws.com/default/restAPI";
 
-    HttpRequest.onreadystatechange = function() { 
-        if (HttpRequest.readyState == 4 && HttpRequest.status == 200){
-            var response = HttpRequest.responseText;
-            sessionStorage.setItem("projects", response);
-            var visited = sessionStorage.getItem("visitedIndex");
-
-            if(visited !== "yes"){
-                var repos = JSON.parse(response)
-                showProjects(repos);
-            }
-        }
-    }
-
-    HttpRequest.open("GET", url, true);   
-    HttpRequest.send();
-};
+fetch(url)
+.then(response => response.json())
+.then(data => showProjects(data));
 
 // function to hide loading gif and show projects
 function showProjects(repos){
@@ -44,16 +28,4 @@ function showProjects(repos){
 
     document.getElementById("loading-img").style.display = "none";
     document.getElementById("project-container").innerHTML = text;
-}
-
-function getProjects(){
-    var repos = sessionStorage.getItem("projects");
-    var visitedIndex = sessionStorage.getItem("visitedIndex");
-
-    if(repos || visitedIndex === "yes"){
-        var repos = JSON.parse(repos)
-        showProjects(repos);
-    }else{
-        getRepositories();
-    }
 }
