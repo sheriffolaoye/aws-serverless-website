@@ -1,0 +1,1 @@
+0 */2 * * * /home/ubuntu/path-to-python-executable/bin/python /home/ubuntu/path-to-script/main.py >> ~/cron.log 2>&1

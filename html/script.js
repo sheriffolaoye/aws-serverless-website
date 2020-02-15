@@ -1,4 +1,4 @@
-var url = "https://c3pzc9vqi9.execute-api.us-east-1.amazonaws.com/default/restAPI";
+var url = "http://rest.sheriffolaoye.com";
 
 fetch(url)
 .then(response => response.json())

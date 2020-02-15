@@ -1,0 +1,13 @@
+[Unit]
+Description=Rest API for a website website
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/path-to files/
+ExecStart=/home/ubuntu/paht-to-virtualenv/bin/gunicorn --bind unix:/tmp/socket main:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

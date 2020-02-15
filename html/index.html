@@ -48,25 +48,24 @@
         <div class="article">
             <h4>This website's architecture</h4>
             <p>
-                This is a website put together using some of solutions provided by Amazon Web Services (AWS).
+            </p>
+
+	    <p>
+		This website uses:       
             </p>
             <ul>
-                <li><strong>AWS S3</strong>: AWS Simple Storage Service is used to store and host the website files.</li>
-                <li><strong>AWS RDS</strong>: A MySQL database is used to store information about currently hosted
-                    repositories in my Github account. This is to avoid making request to the Github API everytime a user
-                    visits the website.</li>
-                <li><strong>AWS Lambda</strong>: Two Lambda functions are used. The first function uses Github API to update
-                    the repositories in the database. The second function acts as a rest API, it serves JSON content
-                    containing details of my github repositories currently stored in the database.</li>
-                <li><strong>AWS ApiGateway</strong>: AWS API Gateway is used as a trigger for the lambda function that
-                    serves as the rest API.</li>
-                <li><strong>AWS CloudWatch</strong>: A Cloudwatch rule is used as a trigger for the lambda function that
-                    updates the database. A cron expression was used to schedule updating the database.</li>
+		<li><strong>EC2</strong>: This is a website running on an EC2 t2.nano linux server.</li>
+                <li><strong>Nginx</strong>: As a reverse proxy server. Requests to the website's rest API(rest.sheriffolaoye.com) are proxied to gunicorn, a Python WSGI HTTP server, running as a systemctl service. Requests to sheriffolaoye.com are handled normally by nginx.</li>
+                <li><strong>Gunicorn</strong>: WSGI HTTP server for running the rest api Flask web app.</li>
+                <li><strong>Flask</strong>: The rest api was built using Flask.</li>
+                <li><strong>MySQL</strong>: Database for storing repository information.</li>
+                <li><strong>Cron Job</strong>: For running a python script that regularly updates the database with the latest repository information.</li>
+                <li><strong>Route 53</strong>: For the Domain Name Service(DNS).</li>	
             </ul>
             <p>
                 View <a href="https://github.com/sheriffolaoye/aws-website" target="_blank">source code</a> for
                 the website on Github. This project was inspired by <a href="https://devoncrawford.io" target="_blank">Devon
-                    Crawford's</a> website and the <a href="https://acloud.guru">A Cloud Guru</a> platform.
+                    Crawford's</a> website.
             </p>
         </div>
 
