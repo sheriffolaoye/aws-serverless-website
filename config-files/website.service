@@ -1,0 +1,13 @@
+[Unit]
+Description=A website
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/path-to files/
+ExecStart=/home/ubuntu/path-to-virtualenv/bin/gunicorn --bind unix:/tmp/website.sock main:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,12 +1,8 @@
 import json
 import datetime
 from database import Database
-import logging
 from flask import Flask, jsonify
 from flask_cors import CORS
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 CORS(app)
@@ -22,7 +18,6 @@ def beautify(repositories):
         repo["DateCreated"] = dateTime.strftime("%H:%M on %b %d, %Y")
     return repos
 
-
 @app.route("/")
 def get_repos():
     db = Database()
@@ -30,8 +25,6 @@ def get_repos():
 
     if db.connect():
         repos = beautify(db.getRepos())
-    else:
-        logger.info("Cannot connect to database")
 
     return jsonify(repos)
 

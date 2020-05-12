@@ -29,7 +29,7 @@ class Database(object):
 
     def update(self, data):
         if self.connected:
-            query = "REPLACE INTO {} (Id, Name, Description, URL, Language, DateCreated) VALUES ".format(self.table_name)
+            query = "INSERT INTO {}(Id, Name, Description, URL, Language, DateCreated) VALUES ".format(self.table_name)
 
             for i in range(len(data)):
                 values = "('{}', '{}', '{}', '{}', '{}', STR_TO_DATE('{}', '%Y-%m-%dT%H:%i:%sZ'))"\
@@ -39,27 +39,11 @@ class Database(object):
                     values += ", "
                 query += values
 
+            query += " ON DUPLICATE KEY UPDATE Name=VALUES(Name), Description=VALUES(Description), \
+                     URL=VALUES(URL), Language=VALUES(Language), DateCreated=VALUES(DateCreated)"
+
             self.cursor.execute(query)
             self.connection.commit()
-
-
-    def removeDeleted(self, ids):
-        if self.connection:
-            query = "SELECT Id FROM {}".format(self.table_name)
-            self.cursor.execute(query)
-            original = self.cursor.fetchall()
-            x = []
-            for i in original:
-                x.append(i[0])
-
-            # get IDs of deleted repository entries
-            toRemove = list(set(x) - set(ids))
-
-            if len(toRemove) > 0:
-                for i in toRemove:
-                    query = "DELETE FROM {} WHERE Id = {}".format(self.table_name, i)
-                    self.cursor.execute(query)
-                    self.connection.commit()
 
 
     def close(self):

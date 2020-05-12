@@ -1,13 +1,9 @@
 import pymysql
 import os
-import logging
 from dotenv import load_dotenv
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 class Database(object):
 	def __init__(self):
@@ -42,8 +38,6 @@ class Database(object):
 			except Exception as e:
 				logger.info(e)
 			return repos
-		else:
-			logger.log("Connect to Database first!")
 
 	def close(self):
 		if self.connection:
