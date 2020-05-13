@@ -1,5 +1,5 @@
 # my-website
-Source and configruation files for my website [sheriffolaoye.com](sheriffolaoye.com)
+Source and configruation files for my website [http://sheriffolaoye.com](sheriffolaoye.com)
 
 This website uses:
 
