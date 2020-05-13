@@ -1,12 +1,25 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template
 import urllib.request
 import json
+from database import Database
+import datetime
+
 
 app = Flask(__name__)
 
 HOME = "index.html"
 PROJECT = "projects.html"
-RESTAPI_URL = "http://rest.sheriffolaoye.com"
+
+def beautify(repositories):
+    selectors = ["Name","DateCreated","Description","HtmlLink","Language"]
+    repos = []
+    for r in repositories:
+         item = dict(zip(selectors, r))
+         repos.append(item)
+    for repo in repos:
+        dateTime = repo["DateCreated"]
+        repo["DateCreated"] = dateTime.strftime("%H:%M on %b %d, %Y")
+    return repos
 
 @app.route("/")
 def home():
@@ -14,16 +27,14 @@ def home():
     
 @app.route("/projects")
 def projects():
-    repositories = None
+    repos= None
+    db = Database()
 
-    try:
-        data = urllib.request.urlopen(RESTAPI_URL)
-        json_data = data.read()
-        repositories = json.loads(json_data)
-    except:
-        pass
+    if db.connect():
+        repos = beautify(db.getRepos())
 
-    return render_template(PROJECT, projects=repositories)
+    return render_template(PROJECT, projects=repos)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

@@ -1,16 +1,17 @@
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+        listen 80;
+        listen [::]:80;
+
+	server_name sheriffolaoye.com;
+
+	location /static {
+		alias /home/ubuntu/website/files/website/static;
+	}
+
 
         location / {
-                proxy_pass http://unix:/tmp/website.sock;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-        }
-
-        location /rest {
-                proxy_pass http://unix:/tmp/restapi.sock;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
+                proxy_pass http://127.0.0.1:5000;
+		include /etc/nginx/proxy_params;
+                proxy_redirect off;
         }
 }

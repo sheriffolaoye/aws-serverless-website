@@ -58,13 +58,13 @@
 		This website uses:       
             </p>
             <ul>
-		<li><strong>EC2</strong>: This is a website running on an EC2 t2.nano linux server.</li>
-                <li><strong>Nginx</strong>: As a reverse proxy server. Requests to the website's rest API(rest.sheriffolaoye.com) are proxied to gunicorn, a Python WSGI HTTP server, running as a systemctl service. Requests to sheriffolaoye.com are handled normally by nginx.</li>
-                <li><strong>Gunicorn</strong>: WSGI HTTP server for running the rest api Flask web app.</li>
-                <li><strong>Flask</strong>: The rest api was built using Flask.</li>
+		        <li><strong>EC2</strong>: An EC2 t2.nano server running ubuntu 18.</li>
+                <li><strong>Flask</strong>: Flask is used to handle and process requests.</li>
+                <li><strong>Gunicorn</strong>: WSGI HTTP server for running Flask web app. It is configured to run as a systemctl service.</li>
+                <li><strong>Nginx</strong>: High performance proxy server that talks to gunicorn.</li>
                 <li><strong>MySQL</strong>: Database for storing repository information.</li>
                 <li><strong>Cron Job</strong>: For running a python script that regularly updates the database with the latest repository information.</li>
-                <li><strong>Route 53</strong>: For the Domain Name Service(DNS).</li>	
+                <li><strong>Route 53</strong>: For the Domain Name Service(DNS).</li>
             </ul>
             <p>
                 View <a href="https://github.com/sheriffolaoye/aws-website" target="_blank">source code</a> for

@@ -35,8 +35,8 @@ class Database(object):
 			try:
 				self.cursor.execute(query)
 				repos = self.cursor.fetchall()
-			except Exception as e:
-				logger.info(e)
+			except:
+				pass
 			return repos
 
 	def close(self):
