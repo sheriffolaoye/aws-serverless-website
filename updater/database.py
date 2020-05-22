@@ -27,7 +27,7 @@ class Database(object):
             return False
 
 
-    def update(self, data):
+    def updateRepos(self, data):
         if self.connected:
             query = "INSERT INTO {}(Id, Name, Description, URL, Language, DateCreated) VALUES ".format(self.table_name)
 
@@ -44,6 +44,33 @@ class Database(object):
 
             self.cursor.execute(query)
             self.connection.commit()
+            self.close()
+
+            return True
+        else:
+            return False
+
+
+    def updateVideos(self, data):
+        if self.connected:
+            query = "INSERT INTO {}(Id, Title, PublishTime) VALUES ".format(self.table_name)
+
+            for i in range(len(data)):
+                values = "('{}', '{}', STR_TO_DATE('{}', '%Y-%m-%dT%H:%i:%sZ'))"\
+                        .format(data[i]["id"], data[i]["title"], data[i]["publishTime"])
+                if i + 1 < len(data):
+                    values += ", "
+                query += values
+
+            query += " ON DUPLICATE KEY UPDATE Title=VALUES(Title), PublishTime=VALUES(PublishTime)"
+
+            self.cursor.execute(query)
+            self.connection.commit()
+            self.close()
+
+            return True
+        else:
+            return False
 
 
     def close(self):
