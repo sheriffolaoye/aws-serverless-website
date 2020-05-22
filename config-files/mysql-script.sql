@@ -18,3 +18,9 @@ CREATE TABLE RepositoryData(
     Language VARCHAR(255),
     DateCreated DATETIME
 );
+
+CREATE TABLE VideoData(
+    Id VARCHAR(100) PRIMARY KEY,
+    Title VARCHAR(255),
+    PublishTime DATETIME
+)
