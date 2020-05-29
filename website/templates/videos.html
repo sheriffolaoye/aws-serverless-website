@@ -27,10 +27,10 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item active" id="navbar-item">
-                    <a class="nav-link" href="projects">Projects<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="projects">Projects</a>
                 </li>
                 <li class="nav-item active" id="navbar-item">
-                    <a class="nav-link" href="videos">Videos</a>
+                    <a class="nav-link" href="videos">Videos<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item" id="navbar-item">
                     <a class="nav-link" href="https://s3.amazonaws.com/sheriffolaoye.com/resume.pdf" target="_blank">Resume</a>
@@ -41,26 +41,24 @@
 
     <div class="projects">
         <div id="project-container">
-            {% if projects %}
-                {% for proj in projects  %}
+            {% if videos %}
+                {% for vid in videos  %}
                 <div class='project-card'>
                     <div class='project-card-body'>
                         <h4 class='project-card-title'>
                             <strong>
-                                {{ proj["Name"] }}
+                                {{ vid["Title"] }}
                             </strong>
                         </h4>
                         <p>
-                            {{ proj["Description"] }}
-                            <br>Language: {{ proj["Language"] }}
-                            <br>Date Created: {{ proj["DateCreated"] }}
+                            {{ vid["Id"] }}
+                            <br>Date Created: {{ vid["PublishedAt"] }}
                         </p>
-                        <a href='{{ proj["HtmlLink"] }}'  target='_blank'>View on GitHub</a>
                     </div>
                 </div>
                 {% endfor %}
             {% else %}
-                <h3 style="text-align:center;margin:100px;">There are no projects to show</h3>
+                <h3 style="text-align:center;margin:100px;">There are no videos to show</h3>
             {% endif %}
         </div>
     </div>

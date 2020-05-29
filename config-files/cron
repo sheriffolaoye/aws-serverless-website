@@ -1,1 +1,2 @@
-0 */2 * * * /home/ubuntu/path-to-python-executable/bin/python /home/ubuntu/path-to-script/main.py >> ~/cron.log 2>&1
+0 */2 * * * /home/ubuntu/path-to-python-executable/bin/python /home/ubuntu/path-to-script/repo_updater.py >> ~/cron.log 2>&1
+0 22 * * * /home/ubuntu/path-to-python-executable/bin/python /home/ubuntu/path-to-script/youtube_updater.py >> ~/cron.log 2>&1

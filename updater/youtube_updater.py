@@ -41,7 +41,7 @@ def main():
 
     current_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ%f')[:-3]
     print(current_time + " | INFO | Attempting to update repositories")
-    
+
     if updater.update():
         print(current_time + " | INFO | Updated videos successfully")
     else:

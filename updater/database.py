@@ -8,7 +8,6 @@ class Database(object):
         self.db_name = os.environ["DB_NAME"]
         self.db_password = os.environ["DB_PASSWORD"]
         self.table_name = os.environ["DB_TABLE_NAME"]
-        self.connected = False
         self.connection = None
 
 
@@ -20,7 +19,6 @@ class Database(object):
                                           connect_timeout=5)
         try:
             self.cursor = self.connection.cursor()
-            self.connected = True
 
             return True
         except:
@@ -28,8 +26,8 @@ class Database(object):
 
 
     def updateRepos(self, data):
-        if self.connected:
-            query = "INSERT INTO {}(Id, Name, Description, URL, Language, DateCreated) VALUES ".format(self.table_name)
+        if self.connect():
+            query = "INSERT INTO RepositoryData(Id, Name, Description, URL, Language, DateCreated) VALUES "
 
             for i in range(len(data)):
                 values = "('{}', '{}', '{}', '{}', '{}', STR_TO_DATE('{}', '%Y-%m-%dT%H:%i:%sZ'))"\
@@ -52,8 +50,8 @@ class Database(object):
 
 
     def updateVideos(self, data):
-        if self.connected:
-            query = "INSERT INTO {}(Id, Title, PublishTime) VALUES ".format(self.table_name)
+        if self.connect():
+            query = "INSERT INTO VideoData(Id, Title, PublishTime) VALUES "
 
             for i in range(len(data)):
                 values = "('{}', '{}', STR_TO_DATE('{}', '%Y-%m-%dT%H:%i:%sZ'))"\
@@ -63,7 +61,6 @@ class Database(object):
                 query += values
 
             query += " ON DUPLICATE KEY UPDATE Title=VALUES(Title), PublishTime=VALUES(PublishTime)"
-
             self.cursor.execute(query)
             self.connection.commit()
             self.close()
