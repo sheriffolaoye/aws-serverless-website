@@ -32,7 +32,7 @@ class VideoUpdater(object):
                 'publishTime'   : i['snippet']['publishTime']
             })
 
-        self.db = Database()
+        self.db = Database("VideoData")
         return self.db.updateVideos(video_data)
 
 

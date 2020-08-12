@@ -16,7 +16,7 @@ class RepoUpdater(object):
         repo_data = []
 
         # create Database instance
-        self.db = Database()
+        self.db = Database("RepositoryData")
         # Connect to the database
         
         for repo in self.repositories:

@@ -1,13 +1,17 @@
 import pymysql
 import os
+from dotenv import load_dotenv
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 class Database(object):
-    def __init__(self):
+    def __init__(self, table_name):
         self.db_username = os.environ["DB_USERNAME"]
         self.db_host = os.environ["DB_ENDPOINT"]
         self.db_name = os.environ["DB_NAME"]
         self.db_password = os.environ["DB_PASSWORD"]
-        self.table_name = os.environ["DB_TABLE_NAME"]
+        self.table_name = table_name
         self.connection = None
 
 
