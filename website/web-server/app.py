@@ -1,15 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import urllib.request
 import json
 from database import Database
 import datetime
 
-
 app = Flask(__name__)
 
 HOME = "index.html"
 PROJECT = "projects.html"
-VIDEO = "videos.html"
 
 def beautify(repositories):
     selectors = ["Name","DateCreated","Description","HtmlLink","Language"]
@@ -24,7 +22,7 @@ def beautify(repositories):
 
 @app.route("/")
 def home():
-    return render_template(HOME)
+    return redirect(url_for('projects'))
     
 @app.route("/projects")
 def projects():
@@ -35,13 +33,3 @@ def projects():
         repos = beautify(db.getRepos())
 
     return render_template(PROJECT, projects=repos)
-
-@app.route("/videos")
-def videos():
-    db = Database()
-    videos = db.getVideos()
-
-    return  render_template(VIDEO, videos=videos)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")

@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: public.ecr.aws/g6t3v7d2/website/database:latest
+    restart: always
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=1
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+          
+  web_server:
+    image: public.ecr.aws/g6t3v7d2/website/web-server:latest
+    ports:
+      - 80:80
+    links:
+      - db:database
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - REPO_LINK=https://api.github.com/users/sheriffolaoye/repos
+      - DB_ENDPOINT=database
+      - DB_PASSWORD=
+      - DB_NAME=
+      - DB_USERNAME=
+      
