@@ -1,27 +1,18 @@
 version: '3'
 services:
-  db:
-    image: public.ecr.aws/g6t3v7d2/website/database:latest
-    restart: always
-    environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=1
-      - MYSQL_DATABASE=
-      - MYSQL_USER=
-      - MYSQL_PASSWORD=
+  redis:
+    image: redislabs/rejson:latest
           
   web_server:
     image: public.ecr.aws/g6t3v7d2/website/web-server:latest
     ports:
       - 80:80
     links:
-      - db:database
+      - redis:redis
     restart: always
     depends_on:
-      - db
+      - redis
     environment:
-      - REPO_LINK=https://api.github.com/users/sheriffolaoye/repos
-      - DB_ENDPOINT=database
-      - DB_PASSWORD=
-      - DB_NAME=
-      - DB_USERNAME=
+      - REPO_LINK=https://api.github.com/users/mandrelbrotset/repos
+      - REDIS_HOST=redis
       
