@@ -3,6 +3,7 @@ import json
 from database import Database
 import os
 import logging
+from datetime import datetime
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
@@ -12,32 +13,30 @@ logging.basicConfig(
 class RepoUpdater(object):
     def update(self):
         link = os.getenv("REPO_LINK")
-        self.data = urllib.request.urlopen(link)
-        self.json_data = self.data.read()
-        self.repositories = json.loads(self.json_data)
+        request_data = urllib.request.urlopen(link)
+        json_data = json.loads(request_data.read())
         
-        self.db = Database()
-        repo_data = []
+        repositories = []
+        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
-        for repo in self.repositories:
-            repo_data.append({
-                "id" : str(repo['id']),
+        for repo in json_data:
+            unformatted_date = datetime.strptime(repo['created_at'], date_format)
+            formatted_date = unformatted_date.strftime("%H:%M on %b %d, %Y")
+
+            repositories.append({
                 "name" : repo['name'],
                 "description" : repo['description'],
                 "url" : repo['html_url'],
-                "date" : repo['created_at'],
+                "date_created" : formatted_date,
                 "language" : repo['language']}
                 )
 
-        return self.db.updateRepos(repo_data)
+        self.db = Database()
+        return self.db.update_repository_data(repositories)
 
 def main():
     repoUpdater = RepoUpdater()
-    
-    if repoUpdater.update():
-        logging.info("Successfully updated repositories")
-    else:
-        logging.error("Failed to update repositories")
+    repoUpdater.update()
 
 if __name__=="__main__":
     main()

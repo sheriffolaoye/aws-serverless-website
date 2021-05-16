@@ -13,6 +13,6 @@ COPY script.sh ./
 RUN chmod +x script.sh
 
 COPY web-server web-server
-COPY updater updater
+COPY repository-updater repository-updater
 
 ENTRYPOINT ["./script.sh"]
