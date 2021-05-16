@@ -40,15 +40,15 @@
                     <div class='project-card-body'>
                         <h4 class='project-card-title'>
                             <strong>
-                                {{ proj["Name"] }}
+                                {{ proj["name"] }}
                             </strong>
                         </h4>
                         <p>
-                            {{ proj["Description"] }}
-                            <br>Language: {{ proj["Language"] }}
-                            <br>Date Created: {{ proj["DateCreated"] }}
+                            {{ proj["description"] }}
+                            <br>Language: {{ proj["language"] }}
+                            <br>Date Created: {{ proj["date_created"] }}
                         </p>
-                        <a href='{{ proj["HtmlLink"] }}'  target='_blank'>View on GitHub</a>
+                        <a href='{{ proj["url"] }}'  target='_blank'>View on GitHub</a>
                     </div>
                 </div>
                 {% endfor %}

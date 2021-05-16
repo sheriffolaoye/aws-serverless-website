@@ -1,43 +1,33 @@
-import pymysql
+from rejson import Client, Path
+import logging
 import os
 
-class Database(object):
-	def __init__(self):
-		self.db_port = 3306
-		if os.getenv("DB_PORT"):
-			self.db_port = int(os.getenv("DB_PORT"))
-		self.db_username = os.getenv("DB_USERNAME")
-		self.db_host = os.getenv("DB_ENDPOINT")
-		self.db_name = os.getenv("DB_NAME")
-		self.db_password = os.getenv("DB_PASSWORD")
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='%Y-%m-%d %H:%M:%S')
 
-		self.connection = None
+class Database():
+    def __init__(self):
+        self.redis_port = 6379
+        if os.getenv("REDIS_PORT"):
+            self.redis_port = int(os.getenv("REDIS_PORT"))
+        self.redis_host = os.getenv("REDIS_HOST")
 
-	def connect(self):
-		self.connection = pymysql.connect(host=self.db_host,
-						user=self.db_username,
-						db=self.db_name,
-			   			password=self.db_password,
-						port=self.db_port)
-		try:
-			self.cursor = self.connection.cursor()
-			return True
-		except:
-			return False
+    def connect_to_redis(self):
+        try:
+            redis_json_client = Client(host=self.redis_host, port=self.redis_port, decode_responses=True)
+            return redis_json_client
+        except Exception as e:
+            logging.error(str(e))
+            return None
+            
+    def get_repository_data(self):
+        redis_connection = self.connect_to_redis()
 
-	def getRepos(self):
-		if self.connect():
-			query = """SELECT Name, DateCreated, Description, URL, 
-			           Language FROM RepositoryData ORDER BY DateCreated DESC"""
-			repos = []
-			try:
-				self.cursor.execute(query)
-				repos = self.cursor.fetchall()
-			except:
-				pass
-			return repos
-
-	def close(self):
-		if self.connection:
-			self.connection.close()
-
+        if redis_connection:
+            repositories = redis_connection.jsonget("repository", Path("repositories"))
+            return repositories
+        else:
+            logging.error("Unable to get repository data")
+            return None
