@@ -2,17 +2,16 @@ version: '3'
 services:
   redis:
     image: redislabs/rejson:latest
-          
-  web_server:
+
+  web-server:
     image: public.ecr.aws/g6t3v7d2/website/web-server:latest
+    depends_on: 
+      - redis
     ports:
       - 80:80
-    links:
-      - redis:redis
-    restart: always
-    depends_on:
-      - redis
     environment:
       - REPO_LINK=https://api.github.com/users/mandrelbrotset/repos
       - REDIS_HOST=redis
-      
+  
+# deploy command
+# docker service create --name website --compose-file=docker-compose.yaml

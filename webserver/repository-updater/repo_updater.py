@@ -11,6 +11,9 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S')
 
 class RepoUpdater(object):
+    def last_update_time(self):
+        self.db = Database()
+
     def update(self):
         link = os.getenv("REPO_LINK")
         request_data = urllib.request.urlopen(link)

@@ -27,6 +27,22 @@ class Database():
         except:
             return None
 
+    def get_last_update_time(self):
+        for i in range(1, redis_connection_retries+1):
+            redis_connection = self.connect_to_redis()
+
+            if redis_connection:
+                update_time = redis_connection.jsonget('repository', Path("update_time"))
+                #logging.info("Successfully updated repositories")
+                return update_time
+            else:
+                logging.error("Error connecting to Redis, waiting for {} secs before connecting again. Retry {}/{}.".
+                    format(redis_retry_wait_time, i, redis_connection_retries))
+                time.sleep(redis_retry_wait_time)
+        
+        logging.error("Failed to update repositories because Redis could not be reached")
+        return None
+
     def update_repository_data(self, repositories):
         for i in range(1, redis_connection_retries+1):
             redis_connection = self.connect_to_redis()
